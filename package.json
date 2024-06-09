@@ -1,0 +1,15 @@
+{
+  "name": "livesplit-voice-reminder",
+  "version": "1.0.0",
+  "description": "连接到 liveSplit，然后根据分段名称，自动播放预定义的提示词",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "livesplit-client": "^1.0.4"
+  }
+}
