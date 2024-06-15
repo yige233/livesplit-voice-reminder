@@ -1,1 +1,3 @@
-node.exe index.js
+@echo off
+node.exe index.js %1
+pause
