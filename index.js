@@ -67,6 +67,7 @@ class VoiceReminder {
     this.config = new Map(eachLine.map((i) => i.split(":")));
   }
   async start() {
+    await fs.mkdir("./voices", { recursive: true });
     await this.loadconfig(this.configPath);
     if (this.config.has("voice-filter")) {
       const [locale, gender] = this.config
@@ -75,7 +76,9 @@ class VoiceReminder {
         .map((i) => i.replace(/\r|\n/g, "").trim());
       this.showAllVoices(locale, gender);
     }
-    const client = new LiveSplitClient("127.0.0.1:16834");
+    const serverAddr = this.config.get("server-address") || "127.0.0.1:16834";
+    const gapOfGetSplitName = this.config.has("wait-ms") ? Number(this.config.get("wait-ms")) : 100;
+    const client = new LiveSplitClient(serverAddr);
     client.on("disconnected", () => {
       console.log("与 liveSplit 的连接已断开。");
       process.exit(0);
@@ -95,7 +98,7 @@ class VoiceReminder {
     });
     await client.connect().catch(() => console.log("连接到 liveSplit 失败。"));
     while (true) {
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, gapOfGetSplitName));
       client.send("getcurrentsplitname");
     }
   }
