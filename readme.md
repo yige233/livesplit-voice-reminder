@@ -29,7 +29,7 @@
 - `voice`
 - `voice-filter`
 - `server-address`
-- `"wait-ms`
+- `wait-ms`
 
 `voice`用于修改语音源，例如：`voice:zh-CN-XiaoxiaoNeural`
 
